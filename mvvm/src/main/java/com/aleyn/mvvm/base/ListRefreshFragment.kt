@@ -10,12 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aleyn.mvvm.adapter.QuickAdapter
 import com.aleyn.mvvm.databinding.BaseRecycleviewBinding
 import com.aleyn.mvvm.extend.flowLaunch
+import com.aleyn.mvvm.widget.RecyclerViewDivider
+import kotlinx.coroutines.flow.asSharedFlow
 
 /**
  *@author : hfj
  */
-abstract class ListRefreshFragment<VM : ListViewModel<T>, T> :
+abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
     BaseVMFragment<VM, BaseRecycleviewBinding>() {
+
+    open val showDivder = false //分割线
 
     var page: Int = 0
     val mAdapter by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { getAdapter() }
@@ -24,11 +28,12 @@ abstract class ListRefreshFragment<VM : ListViewModel<T>, T> :
 
     override fun initView(savedInstanceState: Bundle?) {
         with(mAdapter) {
-            loadMoreModule?.setOnLoadMoreListener(::loadMore)
+            loadMoreModule.setOnLoadMoreListener(::loadMore)
         }
         with(mBinding.recycleView) {
             layoutManager = applyLayoutManager()
             adapter = mAdapter
+            if (showDivder) addDivider()
         }
         with(mBinding.smartRefresh) {
             setOnRefreshListener {
@@ -37,8 +42,16 @@ abstract class ListRefreshFragment<VM : ListViewModel<T>, T> :
         }
     }
 
+    private inline fun RecyclerView.addDivider() {
+        addItemDecoration(RecyclerViewDivider(context))
+    }
+
     open fun applyLayoutManager(): RecyclerView.LayoutManager {
         return LinearLayoutManager(context)
+    }
+
+    open fun showDivder(): Boolean {
+        return false
     }
 
     override fun initObserve() {
@@ -49,7 +62,7 @@ abstract class ListRefreshFragment<VM : ListViewModel<T>, T> :
         }
 
         flowLaunch {
-            viewModel.datas.flowWithLifecycle(lifecycle).collect {
+            viewModel.datas.asSharedFlow().flowWithLifecycle(lifecycle).collect {
                 if (it.curPage == 1) mAdapter.setList(it.datas)
                 else mAdapter.addData(it.datas)
                 if (it.curPage == it.pageCount) mAdapter.loadMoreModule.loadMoreEnd()

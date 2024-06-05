@@ -14,9 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinFrame"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.user.SplashActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

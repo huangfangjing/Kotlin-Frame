@@ -17,4 +17,7 @@
     <color name="norm_grey">#eeeeee</color>
 
     <color name="black_alpha_16">#29000000</color>
+
+    <color name="color_222427">#222427</color>
+    <color name="status_bar_bg">#27000000</color>
 </resources>
