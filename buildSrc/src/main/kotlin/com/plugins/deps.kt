@@ -49,6 +49,12 @@ object Navgation {
     val values = arrayListOf(navFragment, navUi)
 }
 
+object Anko{
+    const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10"
+    const val commons = "org.jetbrains.anko:anko-commons:0.10.5"
+    val values = arrayListOf(stdlib,commons)
+}
+
 
 object Depend {
     const val junit = "junit:junit:${Versions.junit}"

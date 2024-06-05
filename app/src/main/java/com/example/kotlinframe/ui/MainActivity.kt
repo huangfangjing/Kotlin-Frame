@@ -3,9 +3,9 @@ package com.example.kotlinframe.ui
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.aleyn.mvvm.adapter.QuickAdapter
 import com.aleyn.mvvm.base.BaseVMActivity
 import com.aleyn.mvvm.base.NoViewModel
+import com.aleyn.mvvm.ext.AppExt
 import com.example.kotlinframe.R
 import com.example.kotlinframe.databinding.ActivityMainBinding
 import kotlinx.coroutines.GlobalScope
@@ -20,7 +20,6 @@ class MainActivity : BaseVMActivity<NoViewModel, ActivityMainBinding>() {
 
 
     override fun initView(savedInstanceState: Bundle?) {
-
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_fragment) as NavHostFragment
         mBinding.navigaView.setupWithNavController(navHostFragment.navController)
@@ -32,7 +31,9 @@ class MainActivity : BaseVMActivity<NoViewModel, ActivityMainBinding>() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        AppExt.onBackPressed(this)
+    }
 }
 
-fun main() {
-}

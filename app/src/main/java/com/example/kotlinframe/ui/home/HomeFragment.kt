@@ -10,13 +10,17 @@ import com.aleyn.mvvm.extend.flowLaunch
 import com.example.kotlinframe.R
 import com.pcl.mvvm.network.entity.ArticlesBean
 import com.pcl.mvvm.network.entity.BannerBean
-import com.pcl.mvvm.utils.GlideImageLoader
+import com.example.kotlinframe.utils.GlideImageLoader
 import com.youth.banner.Banner
+import kotlin.system.exitProcess
 
 /**
  *@author : hfj
  */
 class HomeFragment : ListRefreshFragment<HomeViewModel, ArticlesBean>() {
+
+    override val showDivder: Boolean
+        get() = true
 
     private lateinit var banner: Banner<BannerBean, GlideImageLoader>
     override fun getAdapter(): QuickAdapter<ArticlesBean> {
@@ -34,6 +38,10 @@ class HomeFragment : ListRefreshFragment<HomeViewModel, ArticlesBean>() {
         with(mAdapter) {
             takeIf { !hasHeaderLayout() }?.let { addHeaderView(banner) }
         }
+    }
+
+    override fun showDivder(): Boolean {
+        return true
     }
 
     override fun loadData() {

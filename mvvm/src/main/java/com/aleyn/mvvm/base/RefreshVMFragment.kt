@@ -11,6 +11,7 @@ import com.aleyn.mvvm.R
 import com.aleyn.mvvm.databinding.RefreshViewLayoutBinding
 import com.aleyn.mvvm.extend.flowLaunch
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import kotlinx.coroutines.flow.asSharedFlow
 
 /**
  *@author : hfj
@@ -38,7 +39,7 @@ abstract class RefreshVMFragment<VM : RefreshViewModel, VB : ViewBinding> :
 
     override fun initObserve() {
         flowLaunch {
-            viewModel.refreshState.flowWithLifecycle(lifecycle).collect {
+            viewModel.refreshState.asSharedFlow().flowWithLifecycle(lifecycle).collect {
                 smartRefresh.takeIf { it.isRefreshing }.let { it?.finishRefresh() }
             }
         }

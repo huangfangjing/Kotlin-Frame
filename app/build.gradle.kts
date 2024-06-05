@@ -1,4 +1,5 @@
 import com.plugins.AndroidX
+import com.plugins.Anko
 import com.plugins.BuildConfig
 
 plugins {
@@ -53,5 +54,8 @@ dependencies {
 
     //MVVM
     implementation(project("path" to ":mvvm"))
+    //CHART
+    implementation(project("path" to ":ChartLibrary"))
+
 
 }

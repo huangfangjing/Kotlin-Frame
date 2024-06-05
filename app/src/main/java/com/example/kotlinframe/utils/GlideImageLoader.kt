@@ -1,4 +1,4 @@
-package com.pcl.mvvm.utils
+package com.example.kotlinframe.utils
 
 import coil.load
 import com.pcl.mvvm.network.entity.BannerBean

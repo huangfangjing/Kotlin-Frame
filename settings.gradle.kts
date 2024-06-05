@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        mavenCentral()
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -7,18 +8,19 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
-        mavenCentral()
         gradlePluginPortal()
+        maven(url = "https://dl.bintray.com/jetbrains/anko")  //kotlin anko
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
         mavenCentral()
+        google()
+        maven(url = "https://dl.bintray.com/jetbrains/anko")  //kotlin anko
     }
 }
 
 rootProject.name = "KotlinFrame"
-include(":app", ":mvvm")
+include(":app", ":mvvm", ":ChartLibrary")
  
