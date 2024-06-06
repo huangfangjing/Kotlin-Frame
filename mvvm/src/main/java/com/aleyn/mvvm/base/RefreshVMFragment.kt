@@ -23,10 +23,9 @@ abstract class RefreshVMFragment<VM : RefreshViewModel, VB : ViewBinding> :
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         super.initBinding(inflater, container)
-        return inflater.inflate(R.layout.refresh_view_layout, mBinding.root as ViewGroup, true)
-            .apply {
-                smartRefresh = findViewById(R.id.smart_refresh)
-            }
+        smartRefresh = inflater.inflate(R.layout.refresh_view_layout, null) as SmartRefreshLayout
+        smartRefresh.takeIf { it.childCount == 0 }.let { it?.addView(mBinding.root) }
+        return smartRefresh
     }
 
     override fun initView(savedInstanceState: Bundle?) {

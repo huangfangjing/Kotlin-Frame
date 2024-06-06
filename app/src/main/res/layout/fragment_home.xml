@@ -1,15 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            app:contentScrim="@android:color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:layout_collapseMode="parallax" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <LinearLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_home"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_36"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:layout_weight="1"
+                app:tabBackground="@color/transparent"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="@dimen/dp_3"
+                app:tabMode="scrollable"
+                app:tabGravity="center"
+                app:tabRippleColor="@android:color/transparent"
+                app:tabTextColor="@color/black2" />
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:background="@color/black2" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_6"
+                android:padding="@dimen/dp_6"
+                android:src="@mipmap/ic_search" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Home"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:background="@color/g18"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

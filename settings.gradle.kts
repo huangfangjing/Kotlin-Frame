@@ -9,7 +9,6 @@ pluginManagement {
             }
         }
         gradlePluginPortal()
-        maven(url = "https://dl.bintray.com/jetbrains/anko")  //kotlin anko
     }
 }
 dependencyResolutionManagement {
@@ -17,7 +16,6 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
         google()
-        maven(url = "https://dl.bintray.com/jetbrains/anko")  //kotlin anko
     }
 }
 

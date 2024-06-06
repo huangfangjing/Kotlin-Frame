@@ -19,6 +19,7 @@ class ProjectViewModel : RefreshViewModel() {
         launch {
             var list: List<TwoLevelData> = projectRepository.getBarData()
             mBarData.emit(list)
+            refreshState.emit(Unit)
         }
 
     }
