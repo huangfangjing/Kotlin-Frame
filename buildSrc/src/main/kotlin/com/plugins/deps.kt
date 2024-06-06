@@ -15,7 +15,7 @@ object Versions {
     const val coil = "2.4.0"
     const val materialDialogs = "3.1.1"
     const val utilCode = "1.30.6"
-    const val navigation = "2.5.3"
+    const val navigation = "2.3.5"//高版本fragment会销毁重新加载
 }
 
 object AndroidX {

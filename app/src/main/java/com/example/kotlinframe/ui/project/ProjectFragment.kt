@@ -2,6 +2,7 @@ package com.example.kotlinframe.ui.project
 
 import androidx.lifecycle.flowWithLifecycle
 import com.aleyn.mvvm.base.BaseVMFragment
+import com.aleyn.mvvm.base.RefreshVMFragment
 import com.aleyn.mvvm.extend.flowLaunch
 import com.example.kotlinframe.databinding.FragmentProjectBinding
 import kotlinx.coroutines.flow.asSharedFlow
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 /**
  *@author : hfj
  */
-class ProjectFragment : BaseVMFragment<ProjectViewModel, FragmentProjectBinding>() {
+class ProjectFragment : RefreshVMFragment<ProjectViewModel, FragmentProjectBinding>() {
 
     override fun loadData() {
         viewModel.getBarData()
@@ -17,6 +18,7 @@ class ProjectFragment : BaseVMFragment<ProjectViewModel, FragmentProjectBinding>
     }
 
     override fun initObserve() {
+        super.initObserve()
         flowLaunch {
             viewModel.mBarData.asSharedFlow().flowWithLifecycle(lifecycle).collect {
                 with(mBinding.barView) {

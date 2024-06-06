@@ -5,19 +5,19 @@
     android:id="@+id/main_navigation"
     app:startDestination="@id/home">
 
-    <fragment
+    <sumFragment
         android:id="@+id/home"
         android:name="com.example.kotlinframe.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/base_recycleview" />
 
-    <fragment
+    <sumFragment
         android:id="@+id/project"
         android:name="com.example.kotlinframe.ui.project.ProjectFragment"
         android:label="projectFragment"
         tools:layout="@layout/fragment_project" />
 
-    <fragment
+    <sumFragment
         android:id="@+id/mine"
         android:name="com.example.kotlinframe.ui.mine.MineFragment"
         android:label="MineFragment"

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.flowWithLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.aleyn.mvvm.adapter.QuickAdapter
 import com.aleyn.mvvm.databinding.BaseRecycleviewBinding
 import com.aleyn.mvvm.extend.flowLaunch
@@ -43,7 +44,11 @@ abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
     }
 
     private inline fun RecyclerView.addDivider() {
-        addItemDecoration(RecyclerViewDivider(context))
+        addItemDecoration(getItemDecoration())
+    }
+
+    open fun getItemDecoration():ItemDecoration{
+        return RecyclerViewDivider(context)
     }
 
     open fun applyLayoutManager(): RecyclerView.LayoutManager {

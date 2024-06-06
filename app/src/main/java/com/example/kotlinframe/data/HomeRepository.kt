@@ -4,6 +4,7 @@ import com.aleyn.mvvm.base.BaseModel
 import com.aleyn.mvvm.entity.ListResponse
 import com.example.kotlinframe.common.BaseResult
 import com.example.kotlinframe.network.api.HomeService
+import com.example.kotlinframe.network.entity.ProjectTabItem
 import com.pcl.mvvm.network.entity.ArticlesBean
 import com.pcl.mvvm.network.entity.BannerBean
 import com.pcl.mvvm.network.entity.HomeListBean
@@ -20,6 +21,10 @@ class HomeRepository : BaseModel() {
     fun getBannerData(): Flow<BaseResult<List<BannerBean>>> = mService.getBanner()
 
     fun getHomeList(page: Int): Flow<BaseResult<ListResponse<ArticlesBean>>> = mService.getHomeList(page)
+
+    suspend fun getTabData():BaseResult<MutableList<ProjectTabItem>> = mService.getTabData()
+
+    suspend fun getSumData(page:Int,id:Int) = mService.getSumtList(page,id)
 
     companion object {
         @Volatile

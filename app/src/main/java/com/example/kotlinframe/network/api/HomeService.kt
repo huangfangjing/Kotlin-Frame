@@ -2,6 +2,9 @@ package com.example.kotlinframe.network.api
 
 import com.aleyn.mvvm.entity.ListResponse
 import com.example.kotlinframe.common.BaseResult
+import com.example.kotlinframe.network.entity.ProjectSubInfo
+import com.example.kotlinframe.network.entity.ProjectSubList
+import com.example.kotlinframe.network.entity.ProjectTabItem
 import com.pcl.mvvm.network.entity.ArticlesBean
 import com.pcl.mvvm.network.entity.BannerBean
 import com.pcl.mvvm.network.entity.HomeListBean
@@ -55,5 +58,22 @@ interface HomeService {
      * 常用网站
      */
     @GET("friend/json")
-    fun getPopularWeb():Flow<BaseResult<List<UsedWeb>>>
+    fun getPopularWeb(): Flow<BaseResult<List<UsedWeb>>>
+
+    /**
+     * 首页项目
+     */
+    @GET("/project/tree/json")
+    suspend fun getTabData(): BaseResult<MutableList<ProjectTabItem>>
+
+    /**
+     * 项目二级列表
+     * @param page  分页数量
+     * @param cid    项目分类的id
+     */
+    @GET("/project/list/{page}/json")
+    suspend fun getSumtList(
+        @Path("page") page: Int,
+        @Query("cid") cid: Int
+    ): BaseResult<ListResponse<ProjectSubInfo>>
 }

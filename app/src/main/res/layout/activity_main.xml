@@ -14,26 +14,27 @@
         app:titleTextAppearance="@style/ToolbarFontStyle"
         app:titleTextColor="@color/white" />
 
+    <!--app:navGraph="@navigation/main_navigation" 防止重走生命周期，通过代码加载-->
+
     <fragment
         android:id="@+id/nav_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:name="com.aleyn.mvvm.widget.navigation.WindowNavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/main_navigation" />
+        app:defaultNavHost="true" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="@color/line"/>
+        android:background="@color/line" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigaView"
+        style="@style/AppTheme.BottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        style="@style/AppTheme.BottomNavigation"
         app:itemIconTint="@drawable/main_bottom_color_selector"
         app:itemTextColor="@drawable/main_bottom_color_selector"
         app:menu="@menu/menu_main" />
