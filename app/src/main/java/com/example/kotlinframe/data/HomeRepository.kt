@@ -24,7 +24,7 @@ class HomeRepository : BaseModel() {
 
     suspend fun getTabData():BaseResult<MutableList<ProjectTabItem>> = mService.getTabData()
 
-    suspend fun getSumData(page:Int,id:Int) = mService.getSumtList(page,id)
+    fun getSumData(page:Int,id:Int) = mService.getSumtList(page,id)
 
     companion object {
         @Volatile

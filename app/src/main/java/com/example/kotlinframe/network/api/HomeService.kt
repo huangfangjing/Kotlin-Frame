@@ -72,8 +72,8 @@ interface HomeService {
      * @param cid    项目分类的id
      */
     @GET("/project/list/{page}/json")
-    suspend fun getSumtList(
+    fun getSumtList(
         @Path("page") page: Int,
         @Query("cid") cid: Int
-    ): BaseResult<ListResponse<ProjectSubInfo>>
+    ): Flow<BaseResult<ListResponse<ProjectSubInfo>>>
 }

@@ -31,10 +31,10 @@ abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
         with(mAdapter) {
             loadMoreModule.setOnLoadMoreListener(::loadMore)
         }
-        with(mBinding.recycleView) {
-            layoutManager = applyLayoutManager()
-            adapter = mAdapter
-            if (showDivder) addDivider()
+        with(mBinding.mutipleView) {
+            recyclerView?.adapter = mAdapter
+            recyclerView?.layoutManager = applyLayoutManager()
+            if (showDivder) recyclerView?.addDivider()
         }
         with(mBinding.smartRefresh) {
             setOnRefreshListener {
@@ -47,16 +47,12 @@ abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
         addItemDecoration(getItemDecoration())
     }
 
-    open fun getItemDecoration():ItemDecoration{
+    open fun getItemDecoration(): ItemDecoration {
         return RecyclerViewDivider(context)
     }
 
     open fun applyLayoutManager(): RecyclerView.LayoutManager {
         return LinearLayoutManager(context)
-    }
-
-    open fun showDivder(): Boolean {
-        return false
     }
 
     override fun initObserve() {
@@ -95,4 +91,19 @@ abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
         }
     }
 
+    override fun showEmptyView() {
+        mBinding.mutipleView.showEmptyView()
+    }
+
+    override fun showContentView() {
+        mBinding.mutipleView.showContentView()
+    }
+
+    override fun showNetWorkError() {
+        mBinding.mutipleView.showNetWorkError()
+    }
+
+    override fun showSystemError() {
+        mBinding.mutipleView.showSystemError()
+    }
 }

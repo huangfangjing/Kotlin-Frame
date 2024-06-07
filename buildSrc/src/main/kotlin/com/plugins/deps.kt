@@ -16,6 +16,7 @@ object Versions {
     const val materialDialogs = "3.1.1"
     const val utilCode = "1.30.6"
     const val navigation = "2.3.5"//高版本fragment会销毁重新加载
+    const val Glide = "4.9.0"
 }
 
 object AndroidX {
@@ -35,6 +36,14 @@ object AndroidX {
     )
 }
 
+//object Glide{
+//    const val glide = "com.github.bumptech.glide:glide:${Versions.Glide}"
+//    const val webpdecoder = "com.zlc.glide:webpdecoder:1.4.${Versions.Glide}"
+//    api "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+//    annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
+//    api "com.zlc.glide:webpdecoder:1.4.${GLIDE_VERSION}"  //使用glide支持webp图片加载
+//}
+
 object Retrofit {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val converterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
@@ -49,10 +58,10 @@ object Navgation {
     val values = arrayListOf(navFragment, navUi)
 }
 
-object Anko{
+object Anko {
     const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10"
     const val commons = "org.jetbrains.anko:anko-commons:0.10.5"
-    val values = arrayListOf(stdlib,commons)
+    val values = arrayListOf(stdlib, commons)
 }
 
 
@@ -65,10 +74,12 @@ object Depend {
     const val BRVAH = "io.github.cymchad:BaseRecyclerViewAdapterHelper:${Versions.BRAVH}"
     const val refreshKernel = "io.github.scwang90:refresh-layout-kernel:2.0.5"
     const val refreshHeader = "io.github.scwang90:refresh-header-classics:2.0.5"
-    const val coil = "io.coil-kt:coil:${Versions.coil}" //图片加载
     const val dialogs = "com.afollestad.material-dialogs:lifecycle:${Versions.materialDialogs}"
     const val dialogsCore = "com.afollestad.material-dialogs:core:${Versions.materialDialogs}"
     const val utilCode = "com.blankj:utilcodex:${Versions.utilCode}"
+    const val glide = "com.github.bumptech.glide:glide:${Versions.Glide}"
+    const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.Glide}"
+    const val x5_webview = "com.tencent.tbs:tbssdk:44132"
 
     const val bdclta =
         "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:4.0.0"

@@ -34,6 +34,7 @@ class HomeViewModel : RefreshViewModel() {
         launch {
             homeRepository.getTabData().getOrThrow().let {
                 tabData.emit(it)
+                refreshState.emit(Unit)
             }
         }
     }

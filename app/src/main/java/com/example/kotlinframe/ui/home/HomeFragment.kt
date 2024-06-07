@@ -4,11 +4,14 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.SparseArray
 import android.util.TypedValue
+import android.view.Gravity
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.util.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import com.aleyn.mvvm.base.RefreshVMFragment
+import com.aleyn.mvvm.base.WebviewDetailActivity
 import com.aleyn.mvvm.extend.flowLaunch
 import com.example.kotlinframe.databinding.FragmentHomeBinding
 import com.example.kotlinframe.network.entity.ProjectTabItem
@@ -16,6 +19,8 @@ import com.example.kotlinframe.ui.home.sum.SumFragment
 import com.example.kotlinframe.utils.GlideImageLoader
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.pcl.mvvm.network.entity.BannerBean
+import com.youth.banner.indicator.CircleIndicator
 import kotlinx.coroutines.flow.asSharedFlow
 
 /**
@@ -31,7 +36,14 @@ class HomeFragment : RefreshVMFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
 
-        mBinding.banner.setAdapter(GlideImageLoader())
+        with(mBinding.banner) {
+            addBannerLifecycleObserver(viewLifecycleOwner)
+                .setIndicator(CircleIndicator(requireContext())).setAdapter(GlideImageLoader())
+                .setOnBannerListener { data, _ ->
+                    data as BannerBean
+                    WebviewDetailActivity.start(requireContext(), data.url, data.title)
+                }
+        }
         mFragmentAdapter =
             ViewPageFragmentAdapter(childFragmentManager, lifecycle, mArrayTabFragments)
         mBinding.viewPager.adapter = mFragmentAdapter
@@ -63,16 +75,24 @@ class HomeFragment : RefreshVMFragment<HomeViewModel, FragmentHomeBinding>() {
         }
         flowLaunch {
             viewModel.tabData.asSharedFlow().flowWithLifecycle(lifecycle).collect {
-                it.filter { item -> item.name != "完整项目" }.forEachIndexed { index, item ->
-                    mProjectTabs.add(item)
-                    mArrayTabFragments.append(index, SumFragment.newInstance(item.id))
-                }
-                mFragmentAdapter?.setData(mArrayTabFragments)
-                mFragmentAdapter?.notifyItemRangeChanged(0, mArrayTabFragments.size())
 
-                // 解决 TabLayout 刷新数据后滚动到错误位置
-                mBinding?.tabHome?.let {
-                    it.post { it.getTabAt(0)?.select() }
+                if (mArrayTabFragments.isEmpty()) {
+                    it.filter { item -> item.name != "完整项目" && item.name != "资源聚合类" }
+                        ?.forEachIndexed { index, item ->
+                            mProjectTabs.add(item)
+                            mArrayTabFragments.append(index, SumFragment.newInstance(item.id))
+                        }
+                    mFragmentAdapter?.setData(mArrayTabFragments)
+                    mFragmentAdapter?.notifyItemRangeChanged(0, mArrayTabFragments.size())
+
+                    // 解决 TabLayout 刷新数据后滚动到错误位置
+                    mBinding?.tabHome?.let {
+                        it.post { it.getTabAt(0)?.select() }
+                    }
+                } else {
+                    val sumFragment =
+                        mArrayTabFragments.get(mBinding.viewPager.currentItem) as SumFragment
+                    sumFragment.loadData()
                 }
             }
         }
@@ -80,11 +100,16 @@ class HomeFragment : RefreshVMFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private val tabSelectedCall = object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab?) {
-            setTabTextSize(tab)
+            tab?.customView = TextView(requireContext()).apply {
+                text = tab?.text
+                typeface = Typeface.DEFAULT_BOLD
+                gravity = Gravity.CENTER
+                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
+                setTextColor(ContextCompat.getColor(requireContext(), com.aleyn.mvvm.R.color.black))
+            }
         }
 
         override fun onTabUnselected(tab: TabLayout.Tab?) {
-            //非选中效果在xml中设置
             tab?.customView = null
         }
 
@@ -92,19 +117,10 @@ class HomeFragment : RefreshVMFragment<HomeViewModel, FragmentHomeBinding>() {
         }
     }
 
-    private fun setTabTextSize(tabFirst: TabLayout.Tab?) {
-        TextView(requireContext()).apply {
-            typeface = Typeface.DEFAULT_BOLD
-            setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
-            setTextColor(ContextCompat.getColor(requireContext(), com.aleyn.mvvm.R.color.black))
-        }.also {
-            it.text = tabFirst?.text
-            tabFirst?.customView = it
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
+        mBinding.banner.destroy()
         mTabLayoutMediator?.detach()
     }
 
