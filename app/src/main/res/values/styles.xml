@@ -16,4 +16,5 @@
     <style name="AppTheme.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="android:height">56dp</item>
     </style>
+
 </resources>

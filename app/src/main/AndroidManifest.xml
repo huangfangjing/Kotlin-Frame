@@ -13,17 +13,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinFrame"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <!--     usesCleartextTraffic不设置   默认所有Http的请求都被阻止了方法-->
 
         <activity
             android:name=".ui.MainActivity"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTask" />
 
         <activity
             android:name=".ui.user.SplashActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

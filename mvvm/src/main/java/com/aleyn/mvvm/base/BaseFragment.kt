@@ -17,7 +17,10 @@ import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.aleyn.mvvm.R
+import com.aleyn.mvvm.databinding.BaseViewBinding
 import com.aleyn.mvvm.event.Message
+import com.aleyn.mvvm.ext.gone
+import com.aleyn.mvvm.ext.visible
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -34,6 +37,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private var isFirst: Boolean = true
 
     private var dialog: MaterialDialog? = null
+
+    lateinit var baseViewBinding: BaseViewBinding
 
     /**
      * 使用 DataBinding时,要重写此方法返回相应的布局 id
@@ -110,24 +115,63 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         dialog?.run { if (isShowing) dismiss() }
     }
 
+    open fun showContentView() {
+        baseViewBinding.flContainer.visible()
+        baseViewBinding.llThrowable.gone()
+    }
+
+    open fun showThrowableView() {
+        baseViewBinding.flContainer.gone()
+        baseViewBinding.llThrowable.visible()
+    }
+
+    open fun showEmptyView() {
+        showThrowableView()
+        baseViewBinding.ivThrowableTip?.setImageResource(R.drawable.icon_data_empty)
+        baseViewBinding.tvThrowableTip?.text = "暂无数据"
+    }
+
+    open fun showNetWorkError() {
+        showThrowableView()
+        baseViewBinding.ivThrowableTip?.setImageResource(R.drawable.icon_net_error)
+        baseViewBinding.tvThrowableTip?.text = "网络异常"
+    }
+
+    open fun showSystemError() {
+        showThrowableView()
+        baseViewBinding.ivThrowableTip?.setImageResource(R.drawable.icon_net_error)
+        baseViewBinding.tvThrowableTip?.text = "系统异常"
+    }
 
     open fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {
+
+            val baseViewCls = BaseViewBinding::class.java
+            baseViewBinding = baseViewCls.getDeclaredMethod("inflate", LayoutInflater::class.java)
+                .invoke(null, inflater) as BaseViewBinding
+
             val cls = type.actualTypeArguments[1] as Class<*>
+
             return when {
                 ViewDataBinding::class.java.isAssignableFrom(cls) && cls != ViewDataBinding::class.java -> {
                     if (layoutId == 0) throw IllegalArgumentException("Using DataBinding requires overriding method layoutId")
                     _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
                     (mBinding as ViewDataBinding).lifecycleOwner = this
-                    mBinding.root
+                    baseViewBinding.flContainer.takeIf { it.childCount == 0 }.let {
+                        it?.addView(mBinding.root)
+                    }
+                    baseViewBinding.root
                 }
 
                 ViewBinding::class.java.isAssignableFrom(cls) && cls != ViewBinding::class.java -> {
                     cls.getDeclaredMethod("inflate", LayoutInflater::class.java).let {
                         @Suppress("UNCHECKED_CAST")
                         _binding = it.invoke(null, inflater) as VB
-                        mBinding.root
+                        if (baseViewBinding.flContainer.childCount == 0) {
+                            baseViewBinding.flContainer.addView(mBinding.root)
+                        }
+                        baseViewBinding.root
                     }
                 }
 

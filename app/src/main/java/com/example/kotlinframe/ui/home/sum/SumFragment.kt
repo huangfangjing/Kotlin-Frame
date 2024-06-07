@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.aleyn.mvvm.adapter.QuickAdapter
 import com.aleyn.mvvm.base.ListRefreshFragment
+import com.aleyn.mvvm.base.WebviewDetailActivity
 import com.aleyn.mvvm.widget.StaggeredItemDecoration
 import com.blankj.utilcode.util.SizeUtils
 import com.example.kotlinframe.network.entity.ProjectSubInfo
+import com.pcl.mvvm.network.entity.ArticlesBean
 
 /**
  *@author : hfj
@@ -31,6 +33,13 @@ class SumFragment : ListRefreshFragment<SumViewModel, ProjectSubInfo>() {
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         mId = arguments?.getInt("id", 0)!!
+        mBinding.smartRefresh.setEnableRefresh(false)
+        mAdapter.setOnItemClickListener { adapter, _, position ->
+            var item = adapter.getItem(position) as ProjectSubInfo
+            if (!item.link.isNullOrEmpty()) {
+                WebviewDetailActivity.start(requireContext(), item.link!!, item.title ?: "详情")
+            }
+        }
     }
 
     override fun getItemDecoration(): RecyclerView.ItemDecoration {

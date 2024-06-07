@@ -14,7 +14,6 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import androidx.core.view.ViewCompat
-import coil.util.Logger
 import com.aleyn.mvvm.ext.gone
 import com.aleyn.mvvm.ext.visible
 import com.youth.banner.util.LogUtils

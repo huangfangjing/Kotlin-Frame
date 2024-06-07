@@ -65,19 +65,29 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     //androidx
     AndroidX.values.forEach { api(it) }
+
     //network
     Retrofit.values.forEach { api(it) }
+
     //Navgation
     Navgation.values.forEach { api(it) }
+
     //material-dialogs
     api(Depend.dialogs)
     api(Depend.dialogsCore)
-    //coil
-    api(Depend.coil)
+
+    //X5 webview
+    api(Depend.x5_webview)
+
     // utils 集合了大量常用的工具类
     api(Depend.utilCode)
 
+    //glide
+    api(Depend.glide)
+    annotationProcessor(Depend.glide_compiler)
+
     api(Depend.banner)
+
     api(Depend.BRVAH)
     api(Depend.refreshKernel)
     api(Depend.refreshHeader)

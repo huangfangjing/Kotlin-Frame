@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.flowWithLifecycle
 import androidx.viewbinding.ViewBinding
 import com.aleyn.mvvm.R
-import com.aleyn.mvvm.databinding.RefreshViewLayoutBinding
 import com.aleyn.mvvm.extend.flowLaunch
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.coroutines.flow.asSharedFlow
@@ -24,7 +22,13 @@ abstract class RefreshVMFragment<VM : RefreshViewModel, VB : ViewBinding> :
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         super.initBinding(inflater, container)
         smartRefresh = inflater.inflate(R.layout.refresh_view_layout, null) as SmartRefreshLayout
-        smartRefresh.takeIf { it.childCount == 0 }.let { it?.addView(mBinding.root) }
+        smartRefresh.takeIf { it.childCount == 0 }.let {
+            it?.addView(
+                baseViewBinding.root,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        }
         return smartRefresh
     }
 
