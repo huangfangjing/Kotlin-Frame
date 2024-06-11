@@ -72,10 +72,6 @@ dependencies {
     //Navgation
     Navgation.values.forEach { api(it) }
 
-    //material-dialogs
-    api(Depend.dialogs)
-    api(Depend.dialogsCore)
-
     //X5 webview
     api(Depend.x5_webview)
 

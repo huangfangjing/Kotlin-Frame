@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
@@ -12,15 +11,12 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.aleyn.mvvm.R
 import com.aleyn.mvvm.databinding.BaseViewBinding
 import com.aleyn.mvvm.event.Message
 import com.aleyn.mvvm.ext.gone
 import com.aleyn.mvvm.ext.visible
+import com.aleyn.mvvm.widget.loading.LoadingUtils
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -36,9 +32,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     //是否第一次加载
     private var isFirst: Boolean = true
 
-    private var dialog: MaterialDialog? = null
-
     lateinit var baseViewBinding: BaseViewBinding
+
+    private val dialogUtils by lazy { LoadingUtils(requireContext()) }
 
     /**
      * 使用 DataBinding时,要重写此方法返回相应的布局 id
@@ -96,23 +92,16 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
      * 打开等待框
      */
     protected fun showLoading(tip: String = "加载中...") {
-        (dialog ?: MaterialDialog(requireContext())
-            .cancelable(false)
-            .cornerRadius(8f)
-            .customView(R.layout.custom_progress_dialog_view, noVerticalPadding = true)
-            .lifecycleOwner(this)
-            .maxWidth(R.dimen.dialog_width)
-            .also {
-                dialog = it
-                it.getCustomView().findViewById<TextView>(R.id.tvTip).text = tip
-            }).show()
+        if (lifecycle.currentState == Lifecycle.State.STARTED) {
+            dialogUtils.showLoading(tip)
+        }
     }
 
     /**
      * 关闭等待框
      */
     protected fun dismissLoading() {
-        dialog?.run { if (isShowing) dismiss() }
+        dialogUtils.dismissLoading()
     }
 
     open fun showContentView() {
@@ -159,7 +148,11 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
                     _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
                     (mBinding as ViewDataBinding).lifecycleOwner = this
                     baseViewBinding.flContainer.takeIf { it.childCount == 0 }.let {
-                        it?.addView(mBinding.root)
+                        it?.addView(
+                            mBinding.root,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
                     }
                     baseViewBinding.root
                 }
@@ -169,7 +162,11 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
                         @Suppress("UNCHECKED_CAST")
                         _binding = it.invoke(null, inflater) as VB
                         if (baseViewBinding.flContainer.childCount == 0) {
-                            baseViewBinding.flContainer.addView(mBinding.root)
+                            baseViewBinding.flContainer.addView(
+                                mBinding.root,
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT
+                            )
                         }
                         baseViewBinding.root
                     }

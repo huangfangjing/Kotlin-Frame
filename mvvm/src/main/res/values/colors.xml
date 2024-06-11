@@ -20,7 +20,7 @@
 
     <color name="color_222427">#222427</color>
     <color name="status_bar_bg">#27000000</color>
-
+    <color name="color_translucence">#90000000</color>
     <color name="black1">#333</color>
     <color name="black2">#666</color>
     <color name="black3">#999</color>

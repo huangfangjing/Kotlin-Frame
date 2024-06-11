@@ -6,14 +6,14 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.aleyn.mvvm.R
 import com.aleyn.mvvm.event.Message
+import com.aleyn.mvvm.widget.loading.LoadingUtils
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -25,9 +25,9 @@ abstract class BaseActivity<DB : ViewBinding> : AppCompatActivity() {
 
     protected lateinit var mBinding: DB
 
-    private var dialog: MaterialDialog? = null
-
     open val layoutId: Int = 0
+
+    private val dialogUtils by lazy { LoadingUtils(baseContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,23 +96,17 @@ abstract class BaseActivity<DB : ViewBinding> : AppCompatActivity() {
     /**
      * 打开等待框
      */
-    protected fun showLoading() {
-        (dialog ?: MaterialDialog(this)
-            .cancelable(false)
-            .cornerRadius(8f)
-            .customView(R.layout.custom_progress_dialog_view, noVerticalPadding = true)
-            .lifecycleOwner(this)
-            .maxWidth(R.dimen.dialog_width).also {
-                dialog = it
-            })
-            .show()
+    protected fun showLoading(tip: String = "加载中...") {
+        if (lifecycle.currentState == Lifecycle.State.STARTED) {
+            dialogUtils.showLoading(tip)
+        }
     }
 
     /**
      * 关闭等待框
      */
     protected fun dismissLoading() {
-        dialog?.run { if (isShowing) dismiss() }
+        dialogUtils.dismissLoading()
     }
 
 }
