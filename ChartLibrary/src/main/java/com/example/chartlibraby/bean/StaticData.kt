@@ -1,8 +1,11 @@
-package com.example.chartlibraby.bean;
+package com.example.chartlibraby.bean
 
-public class StaticData {
+/**
+ *@author : hfj
+ */
+object StaticData {
 
-    public static final String DATA_Line = "[\n" +
+    const val DATA_Line: String = "[\n" +
             "    {\n" +
             "        \"avgScore\": 0.0,\n" +
             "        \"dataStatVoList\": [\n" +
@@ -171,9 +174,9 @@ public class StaticData {
             "        \"indexName\": \"其他类型\",\n" +
             "        \"isMyLocation\": false\n" +
             "    }\n" +
-            "]";
+            "]"
 
-    public static final String DATA_BAR = "[\n" +
+    const val DATA_BAR: String = "[\n" +
             "    {\n" +
             "        \"avgScore\": 0.0,\n" +
             "        \"dataStatVoList\": [\n" +
@@ -258,9 +261,9 @@ public class StaticData {
             "        \"indexName\": \"[90,100)\",\n" +
             "        \"isMyLocation\": false\n" +
             "    }\n" +
-            "]";
+            "]"
 
-    public static final String DATA_RADAR = "[\n" +
+    const val DATA_RADAR: String = "[\n" +
             "    {\n" +
             "        \"avgScore\": 20.0,\n" +
             "        \"avgScoreFormat\": \"20.00\",\n" +
@@ -381,8 +384,8 @@ public class StaticData {
             "        \"indexId\": \"96af2b974b3952d48e432d8cd001c3f4\",\n" +
             "        \"indexName\": \"人工智能理解与体验 \"\n" +
             "    }\n" +
-            "]";
-    public static final String  HOR_DATA= "[\n" +
+            "]"
+    const val HOR_DATA: String = "[\n" +
             "    {\n" +
             "        \"avgScore\": 0.0,\n" +
             "        \"dataStatVoList\": [\n" +
@@ -503,5 +506,5 @@ public class StaticData {
             "        ],\n" +
             "        \"indexName\": \"果实识别\"\n" +
             "    }\n" +
-            "]";
+            "]"
 }

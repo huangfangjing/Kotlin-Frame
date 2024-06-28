@@ -780,7 +780,7 @@ public class RadarView extends View {
                 Point upPoint = new Point((int) event.getX(), (int) event.getY());
                 RadarPoint radarPoint = getShortestDisPoint(points, upPoint);
                 if (radarPoint != null && radarListener != null) {
-                    String content = radarPoint.indexName + "：" + radarPoint.score;
+                    String content = radarPoint.getIndexName() + "：" + radarPoint.getScore();
                     radarListener.onRadarViewClick(content, radarPoint);
                 }
                 break;
@@ -868,12 +868,12 @@ public class RadarView extends View {
         RadarPoint tarRadarPoint = null;
         for (int i = 0; i < points.size(); i++) {
             RadarPoint radarPoint = points.get(i);
-            if (getTwoPointDistance(radarPoint.mPoint, tarPoint) < 50) {
+            if (getTwoPointDistance(radarPoint.getMPoint(), tarPoint) < 50) {
                 if (tarRadarPoint == null) {
                     tarRadarPoint = radarPoint;
                 } else {
-                    if (getTwoPointDistance(tarRadarPoint.mPoint, tarPoint) >
-                            getTwoPointDistance(radarPoint.mPoint, tarPoint)) {
+                    if (getTwoPointDistance(tarRadarPoint.getMPoint(), tarPoint) >
+                            getTwoPointDistance(radarPoint.getMPoint(), tarPoint)) {
                         tarRadarPoint = radarPoint;
                     }
                 }
