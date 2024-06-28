@@ -2,8 +2,6 @@ package com.aleyn.mvvm.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.flowWithLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,11 +16,10 @@ import kotlinx.coroutines.flow.asSharedFlow
 /**
  *@author : hfj
  */
-abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
-    BaseVMFragment<VM, BaseRecycleviewBinding>() {
+abstract class ListRefreshActivity<VM : DataViewModel<T>, T> :
+    BaseVMActivity<VM, BaseRecycleviewBinding>() {
 
     open val showDivder = false //分割线
-
     var page: Int = 0
     val mAdapter by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { getAdapter() }
 
@@ -44,14 +41,6 @@ abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
         }
     }
 
-    open fun getItemDecoration(): ItemDecoration {
-        return RecyclerViewDivider(context)
-    }
-
-    open fun applyLayoutManager(): RecyclerView.LayoutManager {
-        return LinearLayoutManager(context)
-    }
-
     override fun initObserve() {
         flowLaunch {
             viewModel.refreshState.flowWithLifecycle(lifecycle).collect {
@@ -70,6 +59,14 @@ abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
         }
     }
 
+    open fun getItemDecoration(): ItemDecoration {
+        return RecyclerViewDivider(this)
+    }
+
+    open fun applyLayoutManager(): RecyclerView.LayoutManager {
+        return LinearLayoutManager(this)
+    }
+
     private fun dropDownRefresh() {
         page = 0
         loadData()
@@ -80,11 +77,10 @@ abstract class ListRefreshFragment<VM : DataViewModel<T>, T> :
         loadData()
     }
 
-    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
+    override fun initBinding() {
         val cls = BaseRecycleviewBinding::class.java
-        return cls.getDeclaredMethod("inflate", LayoutInflater::class.java).let {
-            _binding = it.invoke(null, inflater) as BaseRecycleviewBinding
-            mBinding.root
+        cls.getDeclaredMethod("inflate", LayoutInflater::class.java).let {
+            mBinding = it.invoke(null, layoutInflater) as BaseRecycleviewBinding
         }
     }
 

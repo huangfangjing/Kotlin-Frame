@@ -28,4 +28,12 @@ class ProjectRepository:BaseModel() {
     fun getLineData():List<TwoLevelData>{
         return Gson().fromJson(StaticData.DATA_Line, object : TypeToken<List<TwoLevelData>>() {}.type)
     }
+
+    fun getRadarData():List<TwoLevelData>{
+        return Gson().fromJson(StaticData.DATA_RADAR, object : TypeToken<List<TwoLevelData>>() {}.type)
+    }
+
+    fun getHorData():List<TwoLevelData>{
+        return Gson().fromJson(StaticData.HOR_DATA, object : TypeToken<List<TwoLevelData>>() {}.type)
+    }
 }

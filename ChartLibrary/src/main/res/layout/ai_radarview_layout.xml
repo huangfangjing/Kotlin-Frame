@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.example.chartlibraby.widget.RadarView
+            android:id="@+id/radarView"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:layer_line_color="@color/g26"
+            app:layer_line_width="0.5dp"
+            app:radar_line_color="@color/g26"
+            app:vertex_icon_margin="10dp"
+            app:vertex_icon_position="top"
+            app:vertex_icon_size="0dp"
+            app:vertex_line_color="@color/g26"
+            app:vertex_line_width="0.5dp"
+            app:vertex_text_color="@color/black2"
+            app:vertex_text_offset="30dp"
+            app:vertex_text_size="10sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/radar_indication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/ai_view_empty_content"
+        android:visibility="gone" />
+
+</LinearLayout>

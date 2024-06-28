@@ -1,5 +1,4 @@
 import com.plugins.AndroidX
-import com.plugins.Anko
 import com.plugins.BuildConfig
 
 plugins {

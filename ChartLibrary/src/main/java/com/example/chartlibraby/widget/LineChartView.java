@@ -42,7 +42,7 @@ public class LineChartView extends View {
     private float mask = 0;
     private static final int DRUING = 1200;
 
-    public static int COLOR[] = {R.color.bar1, R.color.bar2, R.color.bar3, R.color.bar4, R.color.bar5,
+    public static int COLOR[] = {R.color.bar7, R.color.bar2, R.color.bar3, R.color.bar4, R.color.bar5,
             R.color.bar6, R.color.bar7, R.color.bar8, R.color.bar9, R.color.bar10, R.color.g20, R.color.g21, R.color.g22, R.color.g23, R.color.g24,
             R.color.g25, R.color.g26, R.color.g27, R.color.g28};
 

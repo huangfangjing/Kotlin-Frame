@@ -12,7 +12,6 @@ object Versions {
 
     const val banner = "2.2.2"
     const val BRAVH = "3.0.14"
-    const val coil = "2.4.0"
     const val utilCode = "1.30.6"
     const val navigation = "2.3.5"//高版本fragment会销毁重新加载
     const val Glide = "4.9.0"
@@ -48,12 +47,6 @@ object Navgation {
     const val navFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     val values = arrayListOf(navFragment, navUi)
-}
-
-object Anko {
-    const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10"
-    const val commons = "org.jetbrains.anko:anko-commons:0.10.5"
-    val values = arrayListOf(stdlib, commons)
 }
 
 

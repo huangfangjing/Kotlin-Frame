@@ -15,6 +15,8 @@ class ProjectFragment : RefreshVMFragment<ProjectViewModel, FragmentProjectBindi
     override fun loadData() {
         viewModel.getBarData()
         viewModel.getLineData()
+        viewModel.getRadarData()
+        viewModel.getHorData()
     }
 
     override fun initObserve() {
@@ -30,6 +32,21 @@ class ProjectFragment : RefreshVMFragment<ProjectViewModel, FragmentProjectBindi
         flowLaunch {
             viewModel.mLineData.asSharedFlow().flowWithLifecycle(lifecycle).collect {
                 mBinding.lineView.buildDate(it) { twoLevelData ->
+                    showToast(twoLevelData.indexName)
+                }
+            }
+        }
+
+        flowLaunch {
+            viewModel.mRadarData.asSharedFlow().flowWithLifecycle(lifecycle).collect {
+                mBinding.aiRadarView.buildData(it) { content, _ ->
+                    showToast(content)
+                }
+            }
+        }
+        flowLaunch {
+            viewModel.mHorData.asSharedFlow().flowWithLifecycle(lifecycle).collect {
+                mBinding.horView.buildDate(it) { twoLevelData ->
                     showToast(twoLevelData.indexName)
                 }
             }

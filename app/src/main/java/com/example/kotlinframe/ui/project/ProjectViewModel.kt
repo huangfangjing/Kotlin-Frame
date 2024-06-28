@@ -14,6 +14,8 @@ class ProjectViewModel : RefreshViewModel() {
 
     val mBarData = MutableSharedFlow<List<TwoLevelData>>()
     val mLineData = MutableSharedFlow<List<TwoLevelData>>()
+    val mRadarData = MutableSharedFlow<List<TwoLevelData>>()
+    val mHorData = MutableSharedFlow<List<TwoLevelData>>()
 
     fun getBarData() {
         launch {
@@ -28,6 +30,20 @@ class ProjectViewModel : RefreshViewModel() {
         launch {
             var list: List<TwoLevelData> = projectRepository.getLineData()
             mLineData.emit(list)
+        }
+    }
+
+    fun getRadarData() {
+        launch {
+            var list: List<TwoLevelData> = projectRepository.getRadarData()
+            mRadarData.emit(list)
+        }
+    }
+
+    fun getHorData() {
+        launch {
+            var list: List<TwoLevelData> = projectRepository.getHorData()
+            mHorData.emit(list)
         }
     }
 }

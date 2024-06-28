@@ -6,10 +6,16 @@ import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.aleyn.mvvm.widget.SumDividerItemDecoration
 import com.scwang.smart.refresh.layout.util.SmartUtil.dp2px
 
 private var isLock = true
+
+
+fun RecyclerView.addDivider(itemDecoration: ItemDecoration) {
+    addItemDecoration(itemDecoration)
+}
 
 fun RecyclerView.addOnVerticalScrollListener(
     onScrolledUp: (recyclerView: RecyclerView) -> Unit,
@@ -136,7 +142,7 @@ fun RecyclerView.itemAnimator(animator: RecyclerView.ItemAnimator): RecyclerView
     return this
 }
 
-fun RecyclerView.noItemAnim(){
+fun RecyclerView.noItemAnim() {
     itemAnimator = null
 }
 

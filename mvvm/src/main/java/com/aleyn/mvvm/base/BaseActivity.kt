@@ -3,6 +3,7 @@ package com.aleyn.mvvm.base
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +13,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
 import com.aleyn.mvvm.R
+import com.aleyn.mvvm.databinding.BaseViewBinding
 import com.aleyn.mvvm.event.Message
+import com.aleyn.mvvm.ext.gone
+import com.aleyn.mvvm.ext.visible
 import com.aleyn.mvvm.widget.loading.LoadingUtils
 import java.lang.reflect.ParameterizedType
 
@@ -27,18 +31,20 @@ abstract class BaseActivity<DB : ViewBinding> : AppCompatActivity() {
 
     open val layoutId: Int = 0
 
+    lateinit var baseViewBinding: BaseViewBinding
+
     private val dialogUtils by lazy { LoadingUtils(baseContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStatusBarColor()
-        initViewDataBinding()
+        initBinding()
         initView(savedInstanceState)
         initObserve()
         loadData()
     }
 
-    abstract fun initView(savedInstanceState: Bundle?)
+    open fun initView(savedInstanceState: Bundle?) {}
     open fun initObserve() {}
     open fun loadData() {}
 
@@ -62,8 +68,13 @@ abstract class BaseActivity<DB : ViewBinding> : AppCompatActivity() {
     /**
      * DataBinding or ViewBinding
      */
-    private fun initViewDataBinding() {
+    open fun initBinding() {
         val type = javaClass.genericSuperclass
+
+        val baseViewCls = BaseViewBinding::class.java
+        baseViewBinding = baseViewCls.getDeclaredMethod("inflate", LayoutInflater::class.java)
+            .invoke(null, layoutInflater) as BaseViewBinding
+
         if (type is ParameterizedType) {
             val cls = type.actualTypeArguments
                 .map { it as Class<*> }
@@ -73,13 +84,27 @@ abstract class BaseActivity<DB : ViewBinding> : AppCompatActivity() {
                     if (layoutId == 0) throw IllegalArgumentException("Using DataBinding requires overriding method layoutId")
                     mBinding = DataBindingUtil.setContentView(this, layoutId)
                     (mBinding as ViewDataBinding).lifecycleOwner = this
+                    baseViewBinding.flContainer.takeIf { it.childCount == 0 }.let {
+                        it?.addView(
+                            mBinding.root,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+                    }
                 }
 
                 ViewBinding::class.java.isAssignableFrom(cls) && cls != ViewBinding::class.java -> {
                     cls.getDeclaredMethod("inflate", LayoutInflater::class.java).let {
                         @Suppress("UNCHECKED_CAST")
                         mBinding = it.invoke(null, layoutInflater) as DB
-                        setContentView(mBinding.root)
+                        if (baseViewBinding.flContainer.childCount == 0) {
+                            baseViewBinding.flContainer.addView(
+                                mBinding.root,
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT
+                            )
+                        }
+                        setContentView(baseViewBinding.root)
                     }
                 }
 
@@ -107,6 +132,34 @@ abstract class BaseActivity<DB : ViewBinding> : AppCompatActivity() {
      */
     protected fun dismissLoading() {
         dialogUtils.dismissLoading()
+    }
+
+    open fun showContentView() {
+        baseViewBinding.flContainer.visible()
+        baseViewBinding.llThrowable.gone()
+    }
+
+    open fun showThrowableView() {
+        baseViewBinding.flContainer.gone()
+        baseViewBinding.llThrowable.visible()
+    }
+
+    open fun showEmptyView() {
+        showThrowableView()
+        baseViewBinding.ivThrowableTip?.setImageResource(R.drawable.icon_data_empty)
+        baseViewBinding.tvThrowableTip?.text = "暂无数据"
+    }
+
+    open fun showNetWorkError() {
+        showThrowableView()
+        baseViewBinding.ivThrowableTip?.setImageResource(R.drawable.icon_net_error)
+        baseViewBinding.tvThrowableTip?.text = "网络异常"
+    }
+
+    open fun showSystemError() {
+        showThrowableView()
+        baseViewBinding.ivThrowableTip?.setImageResource(R.drawable.icon_net_error)
+        baseViewBinding.tvThrowableTip?.text = "系统异常"
     }
 
 }
