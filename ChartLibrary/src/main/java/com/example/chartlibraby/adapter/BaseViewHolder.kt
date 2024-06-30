@@ -1,31 +1,27 @@
-package com.example.chartlibraby.adapter;
+package com.example.chartlibraby.adapter
 
-import android.view.View;
-
-import androidx.databinding.ViewDataBinding;
-import androidx.recyclerview.widget.RecyclerView;
+import android.view.View
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Created by hfj on 18/5/24.
+ *@author : hfj
  */
 
-public class BaseViewHolder extends RecyclerView.ViewHolder {
-    private ViewDataBinding binding;
+class BaseViewHolder : RecyclerView.ViewHolder {
+    lateinit var viewBinding: ViewDataBinding
 
-    public BaseViewHolder(View itemView) {
-        super(itemView);
+    constructor(itemView: View) : super(itemView)
+
+    constructor(binding: ViewDataBinding) : super(binding.root) {
+        this.viewBinding = binding
     }
 
-    public BaseViewHolder(ViewDataBinding binding) {
-        super(binding.getRoot());
-        this.binding = binding;
+    fun getBinding(): ViewDataBinding {
+        return viewBinding
     }
 
-    public ViewDataBinding getBinding() {
-        return binding;
-    }
-
-    public void setBinding(ViewDataBinding binding) {
-        this.binding = binding;
+    fun setBinding(binding: ViewDataBinding) {
+        this.viewBinding = binding
     }
 }

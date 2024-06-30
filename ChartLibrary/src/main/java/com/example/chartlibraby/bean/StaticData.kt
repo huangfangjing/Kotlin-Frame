@@ -417,19 +417,19 @@ object StaticData {
             "                \"color\": 0,\n" +
             "                \"dataName\": \"全部\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 12.72\n" +
+            "                \"totalScore\": 22.72\n" +
             "            },\n" +
             "            {\n" +
             "                \"color\": 0,\n" +
             "                \"dataName\": \"人工智能17班\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 20.4\n" +
+            "                \"totalScore\": 26.4\n" +
             "            },\n" +
             "            {\n" +
             "                \"color\": 0,\n" +
             "                \"dataName\": \"人工智能19班\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 15.68\n" +
+            "                \"totalScore\": 25.68\n" +
             "            }\n" +
             "        ],\n" +
             "        \"indexName\": \"实时监控\"\n" +
@@ -441,19 +441,19 @@ object StaticData {
             "                \"color\": 0,\n" +
             "                \"dataName\": \"全部\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 17.36\n" +
+            "                \"totalScore\": 27.36\n" +
             "            },\n" +
             "            {\n" +
             "                \"color\": 0,\n" +
             "                \"dataName\": \"人工智能17班\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 14.52\n" +
+            "                \"totalScore\": 24.52\n" +
             "            },\n" +
             "            {\n" +
             "                \"color\": 0,\n" +
             "                \"dataName\": \"人工智能19班\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\":14.52\n" +
+            "                \"totalScore\":24.52\n" +
             "            }\n" +
             "        ],\n" +
             "        \"indexName\": \"识别系统\"\n" +
@@ -465,19 +465,19 @@ object StaticData {
             "                \"color\": 0,\n" +
             "                \"dataName\": \"全部\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 8.64\n" +
+            "                \"totalScore\": 28.64\n" +
             "            },\n" +
             "            {\n" +
             "                \"color\": 0,\n" +
             "                \"dataName\": \"人工智能17班\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 9.42\n" +
+            "                \"totalScore\": 29.42\n" +
             "            },\n" +
             "            {\n" +
             "                \"color\": 0,\n" +
             "                \"dataName\": \"人工智能19班\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 20.0\n" +
+            "                \"totalScore\": 21.0\n" +
             "            }\n" +
             "        ],\n" +
             "        \"indexName\": \"设计制作\"\n" +
@@ -489,7 +489,7 @@ object StaticData {
             "                \"color\": 0,\n" +
             "                \"dataName\": \"全部\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 11.76\n" +
+            "                \"totalScore\": 21.76\n" +
             "            },\n" +
             "            {\n" +
             "                \"color\": 0,\n" +
@@ -501,7 +501,7 @@ object StaticData {
             "                \"color\": 0,\n" +
             "                \"dataName\": \"人工智能19班\",\n" +
             "                \"isHide\": false,\n" +
-            "                \"totalScore\": 9.68\n" +
+            "                \"totalScore\": 28.68\n" +
             "            }\n" +
             "        ],\n" +
             "        \"indexName\": \"果实识别\"\n" +
