@@ -6,10 +6,7 @@ import androidx.viewbinding.ViewBinding
 import com.aleyn.mvvm.extend.flowLaunch
 import java.lang.reflect.ParameterizedType
 
-/**
- * @author : Aleyn
- * @date : 2022/07/31 : 23:05
- */
+
 abstract class BaseVMActivity<VM : BaseViewModel, VB : ViewBinding> : BaseActivity<VB>() {
 
     open lateinit var viewModel: VM

@@ -14,11 +14,6 @@ import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 
-/**
- * @author mingyan.su
- * @date   2023/3/31 17:04
- * @desc   文字详情
- */
 class WebviewDetailActivity : BaseVMActivity<NoViewModel, ActivityWebviewDetailBinding>() {
     private var mTitle = ""
 

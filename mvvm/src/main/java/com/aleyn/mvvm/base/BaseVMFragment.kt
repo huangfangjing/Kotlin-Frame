@@ -8,10 +8,7 @@ import androidx.viewbinding.ViewBinding
 import com.aleyn.mvvm.extend.flowLaunch
 import java.lang.reflect.ParameterizedType
 
-/**
- * @author : Aleyn
- * @date : 2022/07/31 : 22:54
- */
+
 abstract class BaseVMFragment<VM : BaseViewModel, VB : ViewBinding> : BaseFragment<VB>() {
 
     protected lateinit var viewModel: VM

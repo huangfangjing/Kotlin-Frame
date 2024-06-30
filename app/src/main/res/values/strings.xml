@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KotlinFrame</string>
+    <string name="person_sum">人数</string>
+    <string name="score">分数</string>
 </resources>

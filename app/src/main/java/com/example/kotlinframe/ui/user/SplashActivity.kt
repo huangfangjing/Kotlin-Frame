@@ -1,5 +1,6 @@
 package com.example.kotlinframe.ui.user
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +16,7 @@ import com.example.kotlinframe.ui.MainActivity
  */
 class SplashActivity : BaseVMActivity<NoViewModel, ActivitySplashBinding>() {
 
+    @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
         StatusBarSettingHelper.setStatusBarTranslucent(this)
         countDownCoroutines(3, lifecycleScope, onTick = {

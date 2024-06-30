@@ -7,10 +7,6 @@ import org.json.JSONException
 import retrofit2.HttpException
 import java.net.ConnectException
 
-/**
- *   @author : Aleyn
- *   time   : 2019/08/12
- */
 object ExceptionHandle {
 
     fun handleException(e: Throwable): ResponseThrowable {

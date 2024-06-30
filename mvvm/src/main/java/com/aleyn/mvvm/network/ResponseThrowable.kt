@@ -2,10 +2,7 @@ package com.aleyn.mvvm.network
 
 import com.aleyn.mvvm.base.IBaseResponse
 
-/**
- *   @author : Aleyn
- *   time   : 2019/08/12
- */
+
 open class ResponseThrowable : Exception {
     var code: Int
     var errMsg: String

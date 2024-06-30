@@ -4,10 +4,7 @@ import com.aleyn.mvvm.network.ExceptionHandle
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.coroutines.CoroutineExceptionHandler
 
-/**
- *   @author : Aleyn
- *   time   : 2019/11/12
- */
+
 object MVVMLin {
 
     private val defNetException = CoroutineExceptionHandler { _, throwable ->

@@ -1,9 +1,6 @@
 package com.aleyn.mvvm.event
 
-/**
- *   @author : Aleyn
- *   time   : 2019/11/13
- */
+
 class Message @JvmOverloads constructor(
     var code: Int = 0,
     var msg: String = "",

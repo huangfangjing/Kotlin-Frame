@@ -3,10 +3,6 @@ package com.aleyn.mvvm.binding
 import androidx.databinding.BindingAdapter
 import com.google.android.material.tabs.TabLayout
 
-/**
- *   @author : Aleyn
- *   time   : 2019/11/13
- */
 object TabLayoutAdapter {
 
     @BindingAdapter(value = ["items"], requireAll = false)

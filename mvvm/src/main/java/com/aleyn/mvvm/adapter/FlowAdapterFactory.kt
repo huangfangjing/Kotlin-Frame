@@ -7,10 +7,6 @@ import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-/**
- * @author : Aleyn
- * @date : 2022/07/24 : 14:46
- */
 class FlowAdapterFactory private constructor(private val async: Boolean) :
     CallAdapter.Factory() {
 

@@ -8,10 +8,7 @@ import java.lang.reflect.Type
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-/**
- * @author : Aleyn
- * @date : 2022/07/24 : 15:26
- */
+
 class FlowCallAdapter<R : Type>(
     private val responseBodyType: R,
     private val isBody: Boolean,

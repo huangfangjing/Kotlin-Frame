@@ -9,10 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-/**
- *   @author : Aleyn
- *   time   : 2019/11/01
- */
 open class BaseViewModel : ViewModel(), IViewModel, DefaultLifecycleObserver {
 
     val defUI: UIChange by lazy(LazyThreadSafetyMode.NONE) { UIChange() }

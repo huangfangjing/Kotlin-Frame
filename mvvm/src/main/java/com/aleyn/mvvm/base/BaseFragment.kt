@@ -19,10 +19,7 @@ import com.aleyn.mvvm.ext.visible
 import com.aleyn.mvvm.widget.loading.LoadingUtils
 import java.lang.reflect.ParameterizedType
 
-/**
- *   @author : Aleyn
- *   time   : 2019/11/01
- */
+
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     var _binding: VB? = null
